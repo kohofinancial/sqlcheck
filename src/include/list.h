@@ -8,6 +8,10 @@ namespace sqlcheck {
 
 // LOGICAL DATABASE DESIGN
 
+void CheckJSONValuedAttribute(Configuration& state,
+                              const std::string& sql_statement,
+                              bool& print_statement);
+
 void CheckMultiValuedAttribute(Configuration& state,
                                const std::string& sql_statement,
                                bool& print_statement);
