@@ -53,6 +53,38 @@ bool IsCreateStatement(const std::string& sql_statement){
 
 // LOGICAL DATABASE DESIGN
 
+void CheckJSONValuedAttribute(Configuration& state,
+                              const std::string& sql_statement,
+                              bool& print_statement){
+
+  auto ddl_statement = IsDDLStatement(sql_statement);
+  if(ddl_statement == false){
+    return;
+  }
+  std::regex pattern("(\\s+hstore\\s+)|(\\s+json\\s+)");
+  std::string title = "JSON- or HStore-Valued Attribute";
+  PatternType pattern_type = PatternType::PATTERN_TYPE_LOGICAL_DATABASE_DESIGN;
+
+  auto message =
+      "● Store each value in its own column and row: "
+      "Storing a JSON/HStore column can cause performance and data integrity "
+      "problems. Querying against such a column would require parsing "
+      "expressions. It is expensive to parse such columns. This may also "
+      "lead to more data being transferred across the network if "
+      "users only need a small subset of data.";
+
+  CheckPattern(state,
+               sql_statement,
+               print_statement,
+               pattern,
+               RISK_LEVEL_HIGH,
+               pattern_type,
+               title,
+               message,
+               true);
+
+}
+
 
 void CheckMultiValuedAttribute(Configuration& state,
                                const std::string& sql_statement,
@@ -1123,4 +1155,3 @@ void CheckReadablePasswords(Configuration& state,
 }
 
 }  // namespace machine
-

@@ -283,6 +283,8 @@ void CheckStatement(Configuration& state,
 
   // LOGICAL DATABASE DESIGN
 
+  CheckJSONValuedAttribute(state, statement, print_statement);
+
   CheckMultiValuedAttribute(state, statement, print_statement);
 
   CheckRecursiveDependency(state, statement, print_statement);
@@ -353,4 +355,3 @@ void CheckStatement(Configuration& state,
 }
 
 }  // namespace machine
-
