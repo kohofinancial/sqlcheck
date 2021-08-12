@@ -61,7 +61,7 @@ void CheckJSONValuedAttribute(Configuration& state,
   if(ddl_statement == false){
     return;
   }
-  std::regex pattern("(\\s+hstore\\s+)|(\\s+json\\s+)");
+  std::regex pattern("(\\s+hstore)|(\\s+json)|(\\s+jsonb)");
   std::string title = "JSON- or HStore-Valued Attribute";
   PatternType pattern_type = PatternType::PATTERN_TYPE_LOGICAL_DATABASE_DESIGN;
 
